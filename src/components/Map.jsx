@@ -29,9 +29,14 @@ export default function Map({ selectedRoutes, selectedNeighborhood, setVehicleCo
     // const { neighborhood } = useFetchNeighborhoods(selectedNeighborhood);
 
     // filter neighborhoods
-    filteredBuses = selectedNeighborhood === 'all'
+    console.log("SN: ", selectedNeighborhood);
+    filteredBuses = selectedNeighborhood[0] === 'all'
       ? filteredBuses
-      : filteredBuses.filter(b => selectedNeighborhood.includes(b.neighborhood.toLowerCase()));
+      : filteredBuses.filter(b => 
+          selectedNeighborhood.includes(b.neighborhood.toLowerCase())
+        );
+
+    console.log("FB: ", filteredBuses);
 
     /* ========== NEIGHBORHOOD FILTER LOGIC ================= */
 
