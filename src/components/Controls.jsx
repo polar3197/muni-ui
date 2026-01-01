@@ -35,7 +35,7 @@ const NbrhdFilter = ({ setSelectedNeighborhood }) => {
     const [inputValue, setInputValue] = useState('');
 
     const handleSubmit = () => {
-        const nbrhd = inputValue.split(',').map(r => r.trim()).filter(r => r);
+        const nbrhd = inputValue.split(',').map(r => r.trim().toLowerCase()).filter(r => r);
         setSelectedNeighborhood(nbrhd);
         setInputValue('');
     };

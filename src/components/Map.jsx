@@ -31,7 +31,7 @@ export default function Map({ selectedRoutes, selectedNeighborhood, setVehicleCo
     // filter neighborhoods
     filteredBuses = selectedNeighborhood === 'all'
       ? filteredBuses
-      : filteredBuses.filter(b => selectedNeighborhood.includes(b.neighborhood));
+      : filteredBuses.filter(b => selectedNeighborhood.includes(b.neighborhood.toLowerCase()));
 
     /* ========== NEIGHBORHOOD FILTER LOGIC ================= */
 
