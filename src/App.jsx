@@ -12,6 +12,7 @@ function App() {
   const [selectedRoutes, setSelectedRoutes] = useState(['J', 'N', '38R']); 
   const [selectedNeighborhood, setSelectedNeighborhood] = useState('all');
   const [vehicleCount, setVehicleCount] = useState('')
+  const [timeUpdated, setTimeUpdated] = useState('loading...')
 
   return (
     <div className='site-wrapper'>
@@ -22,11 +23,13 @@ function App() {
               selectedRoutes={selectedRoutes} 
               selectedNeighborhood={selectedNeighborhood}
               setVehicleCount={setVehicleCount}
+              setTimeUpdated={setTimeUpdated}
             />
         </div>
         <div className='sidebar'>
             <Status
               vehicleCount={vehicleCount}
+              timeUpdated={timeUpdated}
             />
             <Controls 
               selectedRoutes={selectedRoutes} 

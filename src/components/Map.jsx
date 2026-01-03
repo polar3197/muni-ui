@@ -7,7 +7,7 @@ import L from 'leaflet';
 import { useFetchVehicles } from '../hooks/fetchVehicles';
 // import { useFetchNeighborhoods } from '../hooks/fetchNeighborhoods';
 
-export default function Map({ selectedRoutes, selectedNeighborhood, setVehicleCount }) {
+export default function Map({ selectedRoutes, selectedNeighborhood, setVehicleCount, setTimeUpdated }) {
     const london = [51.505, -0.09];
     const sf = [37.7749, -122.447];
     const sc = [36.9741, -122.0288];
@@ -16,27 +16,24 @@ export default function Map({ selectedRoutes, selectedNeighborhood, setVehicleCo
 
     /* ========== ROUTE FILTER LOGIC ======================== */
     // fetch new bus locations every minute
-    const { buses } = useFetchVehicles(60000);
+    const { buses } = useFetchVehicles(60000, setTimeUpdated);
 
     // filter routes
     let filteredBuses = selectedRoutes === 'all' 
       ? buses 
       : buses.filter(b =>  selectedRoutes.includes(b.route_id));
     /* ========== ROUTE FILTER LOGIC ======================== */
-
+    console.log("bus details: ", buses[0]);
     /* ========== NEIGHBORHOOD FILTER LOGIC ================= */
     // currently built to only handle one neighborhood
     // const { neighborhood } = useFetchNeighborhoods(selectedNeighborhood);
 
     // filter neighborhoods
-    console.log("SN: ", selectedNeighborhood);
     filteredBuses = selectedNeighborhood === 'all'
       ? filteredBuses
       : filteredBuses.filter(b => 
           b.neighborhood && selectedNeighborhood.includes(b.neighborhood.toLowerCase())
         );
-
-    console.log("FB: ", filteredBuses);
 
     /* ========== NEIGHBORHOOD FILTER LOGIC ================= */
 

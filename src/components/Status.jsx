@@ -1,43 +1,27 @@
 import '../css/Controls.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-// const ToggleSwitch = ({ label, leftLabel = "Control Panel", rightLabel = "LLM Interface" }) => {
-//     const [isChecked, setIsChecked] = useState(false);
+export default function Status({vehicleCount, timeUpdated}) {
+    const [seconds, setSeconds] = useState(0)
+    
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setSeconds(prev => prev + 1);
+    //     }, 1000);
 
-//     const toggleSwitch = () => {
-//         setIsChecked(!isChecked);
-//     };
-
-//     return (
-//         <div className="toggle-container">
-//             <span className={`toggle-label ${!isChecked ? 'active' : ''}`}>
-//                 {leftLabel}
-//             </span>
-//             <div className="toggle-switch">
-//                 <input
-//                     type="checkbox"
-//                     className="checkbox"
-//                     name={label}
-//                     id={label}
-//                     checked={isChecked}
-//                     onChange={toggleSwitch}
-//                 />
-//                 <label className="label" htmlFor={label}>
-//                     <span className="switch" />
-//                 </label>
-//             </div>
-//             <span className={`toggle-label ${isChecked ? 'active' : ''}`}>
-//                 {rightLabel}
-//             </span>
-//         </div>
-//     );
-// };
-
-export default function Status({vehicleCount}) {
+    //     return() => clearInterval(interval);
+    // }, []);
+    
     return (
         <div className="status">
-            <p><b>vehicle count:</b> {vehicleCount}</p>
-            {/* <ToggleSwitch label="interface-toggle" />  Add label prop */}
+            <div style={{ textAlign: "center" }}>
+                <h3>{vehicleCount}</h3>
+                <p>vehicles</p>
+            </div>
+            <div style={{ textAlign: "center" }}>
+                <h3>{timeUpdated}</h3>
+                <p>last updated</p>
+            </div>
         </div>
     );
 }
