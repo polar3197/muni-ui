@@ -46,7 +46,6 @@ const NbrhdFilter = ({ setSelectedNeighborhood }) => {
 
     return (
         <div className="interactives">
-            <div className="interactives">
             <input
                 type="text" 
                 placeholder='Nob Hill, Inner Richmond...'
@@ -56,7 +55,6 @@ const NbrhdFilter = ({ setSelectedNeighborhood }) => {
             </input>
             <button onClick={handleSubmit}>submit</button>
             <button onClick={handleShowAll}>show all</button>
-        </div>
         </div>
     )
 }
