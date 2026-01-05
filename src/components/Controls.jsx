@@ -3,7 +3,7 @@ import { useState } from 'react'
 // import { useFetchNeighborhoods } from '../hooks/fetchNeighborhoods';
 
 const RouteFilter = ({ selectedRoutes, setSelectedRoutes }) => {
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState('N, J, 38R');
 
     const handleSubmit = () => {
         // Parse comma-separated routes: "N, J, 38R" -> ['N', 'J', '38R']
@@ -66,11 +66,9 @@ const NbrhdFilter = ({ setSelectedNeighborhood }) => {
 const StopsControl = ({ setRouteStops }) => {
     const [inputValue, setInputValue] = useState('');
 
-    console.log(inputValue);
     const handleSubmit = async () => {
         const routes = inputValue.split(',').map(r => r.trim().toLowerCase()).filter(r => r);
         setRouteStops(routes);
-        console.log("routes: ", routes);
     };
 
     const handleShowNone = () => {

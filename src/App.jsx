@@ -15,6 +15,11 @@ function App() {
   const [timeUpdated, setTimeUpdated] = useState('loading...');
   const [routeStops, setRouteStops] = useState('none');
 
+  // immediately fetch known route IDs for quick validation
+  // useEffect(() => {
+  //     const routes = api.get("/routes");
+  // }, []);
+
   return (
     <div className='site-wrapper'>
       <div className='header'><h2>MUNI Map</h2></div>

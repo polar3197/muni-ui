@@ -6,7 +6,6 @@ export function useFetchStops(routeStops) {
 
     useEffect(() => {
         const fetchStops = async () => {
-            console.log("In fetch: ", routeStops)
             if (routeStops === 'none') {
                 setFetchedStops('none');
                 return;
@@ -14,13 +13,10 @@ export function useFetchStops(routeStops) {
             try{
                 const allStops = [];
                 for (const routeId of routeStops) {
-                    console.log("route: ", routeId);
                     const response = await api.get(`/stops/${routeId}`);
-                    console.log("response: ", response.data[0]);
                     allStops.push(response.data[0]);
                 }
                 setFetchedStops(allStops);
-                console.log(allStops);
             } catch (err) {
                 console.log("error in fetch vehicles: ", err);
             }
