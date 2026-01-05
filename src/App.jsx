@@ -11,8 +11,9 @@ function App() {
   // default to just three routes for rendering speed purposes
   const [selectedRoutes, setSelectedRoutes] = useState(['J', 'N', '38R']); 
   const [selectedNeighborhood, setSelectedNeighborhood] = useState('all');
-  const [vehicleCount, setVehicleCount] = useState('')
-  const [timeUpdated, setTimeUpdated] = useState('loading...')
+  const [vehicleCount, setVehicleCount] = useState('');
+  const [timeUpdated, setTimeUpdated] = useState('loading...');
+  const [routeStops, setRouteStops] = useState('none');
 
   return (
     <div className='site-wrapper'>
@@ -24,6 +25,7 @@ function App() {
               selectedNeighborhood={selectedNeighborhood}
               setVehicleCount={setVehicleCount}
               setTimeUpdated={setTimeUpdated}
+              routeStops={routeStops}
             />
         </div>
         <div className='sidebar'>
@@ -35,6 +37,7 @@ function App() {
               selectedRoutes={selectedRoutes} 
               setSelectedRoutes={setSelectedRoutes}
               setSelectedNeighborhood={setSelectedNeighborhood}
+              setRouteStops={setRouteStops}
             />
         </div>
       </div>

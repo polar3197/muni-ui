@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://quote-boxes-featured-other.trycloudflare.com',
+  baseURL: 'https://cemetery-blackjack-environments-matching.trycloudflare.com',
   timeout: 10000,
 });
 

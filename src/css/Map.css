@@ -18,3 +18,16 @@
     white-space: nowrap;
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
+
+.stop-icon {
+    background: rgb(255, 62, 23);
+    border: 3px solid rgb(255, 255, 255);
+    padding: 2px 5px;
+    height: 20px;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
