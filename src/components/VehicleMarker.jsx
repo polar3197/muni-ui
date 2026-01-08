@@ -21,7 +21,7 @@ export default function VehicleMarker({bus}) {
             position={[bus.lat, bus.lon]}
             icon={vehicleIcon(bus.route_id, bus.direction_id, bus.occupancy)}
         >
-            <Popup>{bus.route_id}</Popup>
+            <Popup>route: {bus.route_id}, id: {bus.vehicle_id}</Popup>
         </Marker>
     )
 }

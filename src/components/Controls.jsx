@@ -67,6 +67,7 @@ const StopsControl = ({ setRouteStops }) => {
     const [inputValue, setInputValue] = useState('');
 
     const handleSubmit = async () => {
+        // add route entry validation
         const routes = inputValue.split(',').map(r => r.trim().toLowerCase()).filter(r => r);
         setRouteStops(routes);
     };
@@ -90,6 +91,28 @@ const StopsControl = ({ setRouteStops }) => {
         </div>
     )
 }
+
+// show all buses within X feet of me
+
+// show routes of all filtered buses
+
+
+
+// time period replay
+// pauses running useEffect in fetchVehicles hook
+// clears map
+// calculates time interval
+// fetches amount of time requested for replay (max three weeks, but 1 day for demo)
+// stores all vehicle info (bare minimum --> lat, lon, route_id, occupancy)
+    // in array indexed by timestamp.
+// while the array is full,
+    // popleft to get the next set of vehicles, 
+    // map them
+    // idle for calculated amount of time
+// clearn map
+// restart fetchVehicles hook
+// other cleanup?
+
 
 const Pane = ({ name, filter }) => {
     return (

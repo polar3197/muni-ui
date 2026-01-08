@@ -14,9 +14,15 @@ export function useFetchStops(routeStops) {
                 const allStops = [];
                 for (const routeId of routeStops) {
                     const response = await api.get(`/stops/${routeId}`);
-                    allStops.push(response.data[0]);
+                    if (response["status"] == 200 && response["data"].length > 0) { // validate response
+                        allStops.push(response.data[0]);
+                    }
                 }
-                setFetchedStops(allStops);
+                if (allStops == []) {
+                    setFetchedStops("none");
+                } else {
+                    setFetchedStops(allStops);
+                }
             } catch (err) {
                 console.log("error in fetch vehicles: ", err);
             }

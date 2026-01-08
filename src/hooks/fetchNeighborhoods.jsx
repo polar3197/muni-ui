@@ -9,6 +9,7 @@ export function useFetchNeighborhoods(nbrhd) {
         const fetchNeighborhoods = async() => {
             try {
                 const response = await api.get(`/neighborhoods/${nbrhd}`);
+                console.log("response: ", response["data"], response["status"])
                 const data = await response.data;
                 setNbrhd(data); // or parse/transform as needed
             } catch (err) {
