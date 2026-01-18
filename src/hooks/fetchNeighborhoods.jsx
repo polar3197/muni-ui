@@ -13,7 +13,7 @@ export function useFetchNeighborhoods(nbrhd) {
                 const data = await response.data;
                 setNbrhd(data); // or parse/transform as needed
             } catch (err) {
-                console.log("error in fetch vehicles: ", err);
+                
             }
         };
         
