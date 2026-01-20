@@ -15,14 +15,21 @@ export default function VehicleMarker({bus}) {
         iconSize: null
     });
 
+    const bearing = bus.bearing || 0;
+
     return (
         <Marker 
             key={bus.vehicle_id} 
             position={[bus.lat, bus.lon]}
             icon={vehicleIcon(bus.route_id, bus.direction_id, bus.occupancy)}
         >
-            <Popup>route: {bus.route_id}, id: {bus.vehicle_id}, {bus.direction_id ? "inbound" : "outbound"}</Popup>
+            <Popup>
+                <div style={{textAlign: 'center'}}>
+                    Vehicle: {bus.vehicle_id}<br/>
+                    {bus.direction_id ? "Inbound" : "Outbound"}<br/>
+                    <div>Bearing: {bearing}°</div>
+                </div>
+            </Popup>
         </Marker>
     )
 }
-

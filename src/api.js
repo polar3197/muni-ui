@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://putting-remark-lodging-normally.trycloudflare.com',
+  baseURL: 'https://regards-pregnancy-label-justify.trycloudflare.com',
   timeout: 10000,
 });
 

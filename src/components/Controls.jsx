@@ -1,8 +1,7 @@
 import '../css/Controls.css'
 import NbrhdFilter from './filters/NbrhdFilter'
-import StopsControl from './filters/StopsControl'
 import RouteFilter from './filters/RouteFilter'
-import ShapeFilter from './filters/ShapeFilter'
+import DisplayPaths from './filters/DisplayPaths'
 
 const Pane = ({ name, filter }) => {
     return (
@@ -18,11 +17,10 @@ export default function Controls({
     setSelectedRoutes,
     selectedNeighborhoods,
     setSelectedNeighborhoods,
-    setRouteStops,
     availableRoutes,
     availableNeighborhoods,
-    currShape,
-    setCurrShape,
+    setPathButton,
+    pathButton,
 }) {
     return (
         <div className="controls-container">
@@ -47,21 +45,15 @@ export default function Controls({
                 }
             />
             <Pane 
-                name='Show Stops' 
+                name='Show Paths' 
                 filter={
-                    <StopsControl
-                        setRouteStops={setRouteStops}
+                    <DisplayPaths 
+                        setPathButton={setPathButton}
+                        pathButton={pathButton}
                     />
                 }
             />
-            <Pane 
-                name='Show Shapes' 
-                filter={
-                    <ShapeFilter 
-                        setCurrShape={setCurrShape}
-                    />
-                }
-            />
+            <Pane name='*In development*' />
             <Pane name='*In development*' />
         </div>
     );

@@ -1,65 +1,45 @@
 // components/Map.jsx
-import { MapContainer, TileLayer, Polyline } from 'react-leaflet';
-import { useState, useEffect } from 'react'
+import { MapContainer, TileLayer} from 'react-leaflet';
+import { useEffect } from 'react'
 import 'leaflet/dist/leaflet.css';
 import '../css/Map.css';
 
 import { useFetchVehicles } from '../hooks/fetchVehicles';
-import { useFetchStops } from '../hooks/fetchStops';
 import { useFilterVehicles } from '../hooks/filterVehicles';
+import useUserLocation from '../hooks/useUserLocation';
 import VehicleMarker from './VehicleMarker';
-import StopMarker from './StopMarker';
-
-// Component to render the route shape
-function RouteShape({ shapeGeoJSON }) {
-    const [coordinates, setCoordinates] = useState([]);
-
-    useEffect(() => {
-        if (!shapeGeoJSON) {
-            setCoordinates([]);
-            return;
-        }
-
-        // GeoJSON format: { "type": "LineString", "coordinates": [[lon, lat], [lon, lat], ...] }
-        if (shapeGeoJSON.type === 'LineString' && shapeGeoJSON.coordinates) {
-            // Convert from [lon, lat] to [lat, lon] for Leaflet
-            const leafletCoords = shapeGeoJSON.coordinates.map(coord => [coord[1], coord[0]]);
-            setCoordinates(leafletCoords);
-        }
-    }, [shapeGeoJSON]);
-
-    if (coordinates.length === 0) return null;
-
-    return (
-        <Polyline
-            positions={coordinates}
-            pathOptions={{
-                color: '#eb2525',
-                weight: 8,
-                opacity: 0.7
-            }}
-        />
-    );
-}
+import RouteShape from './RouteShape';
+import UserLocationMarker from './UserLocationMarker';
 
 export default function Map({
-  selectedRoutes,
-  selectedNeighborhoods,
   setVehicleCount,
   setTimeUpdated,
-  routeStops,
-  currShape
+  selectedNeighborhoods,
+  selectedRoutes,
+  activePaths,
+  setDisplayedRoutes,
 }) {
     const sf = [37.7749, -122.447];
     const position = sf;
 
     const { buses } = useFetchVehicles(60000, setTimeUpdated);
-    const { fetchedStops } = useFetchStops(routeStops);
-    const filteredVehicles = useFilterVehicles(buses, selectedNeighborhoods, selectedRoutes);
+    const { filteredVehicles, displayedRoutes } = useFilterVehicles(buses, selectedNeighborhoods, selectedRoutes, setDisplayedRoutes);
+    const { userLocation, locationError } = useUserLocation();
+
+    useEffect(() => {
+        if (locationError) {
+            console.log('Location error:', locationError);
+        }
+    }, [locationError]);
+    // console.log("FV: ", displayedRoutes);
+    
+    useEffect(() => {
+        setDisplayedRoutes(displayedRoutes);
+    }, [displayedRoutes, setDisplayedRoutes]);
 
     useEffect(() => {
         setVehicleCount(filteredVehicles.length);
-    }, [filteredVehicles.length]);
+    }, [filteredVehicles.length, setVehicleCount]);
     
     return (
       <MapContainer 
@@ -73,24 +53,25 @@ export default function Map({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* Render route shape */}
-        {currShape && <RouteShape shapeGeoJSON={currShape} />}
+        {/* Render route shapes from activePaths */}
+        {activePaths.map(path => (
+          <RouteShape 
+            key={path.shape_id}
+            shapeGeoJSON={path.route_line} 
+            routeId={path.route_id}
+            directionId={path.direction_id}
+          />
+        ))}
+        {/* {currShape && <RouteShape shapeGeoJSON={currShape} />} */}
 
         {filteredVehicles.map(bus => (
-          <VehicleMarker 
+          <VehicleMarker
             key={bus.vehicle_id}
             bus={bus}
           />
         ))}
 
-        {fetchedStops != 'none' && fetchedStops.map(route => 
-          route.stops.map(stop => (
-            <StopMarker 
-              key={stop.stop_id + stop.lat}
-              stop={stop}
-            />
-          ))
-        )}
+        <UserLocationMarker userLocation={userLocation} />
       </MapContainer>
     );
 }

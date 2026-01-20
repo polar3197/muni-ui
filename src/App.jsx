@@ -7,15 +7,18 @@ import Map from './components/Map';
 import Controls from './components/Controls';
 import Status from './components/Status';
 import api from './api'
+import useDisplayPaths from './hooks/displayPaths';
 
 function App() {
   // [] = show all, ['N', etc.] = show specified, null = show none
   const [selectedRoutes, setSelectedRoutes] = useState(['J', 'N', '38R']);
   const [selectedNeighborhoods, setSelectedNeighborhoods] = useState([]);
+  const [displayedRoutes, setDisplayedRoutes] = useState(['J', 'N', '38R']);
+
   const [vehicleCount, setVehicleCount] = useState('');
   const [timeUpdated, setTimeUpdated] = useState('loading...');
-  const [routeStops, setRouteStops] = useState('none');
-  const [currShape, setCurrShape] = useState([]);
+
+  const [pathButton, setPathButton] = useState('Show Paths');
 
   // immediately fetch known route IDs and Nhoods for quick validation
   const [availableRoutes, setAvailableRoutes] = useState([]);
@@ -30,7 +33,7 @@ function App() {
           api.get("/neighborhoods"),
         ]);
         
-        setAvailableRoutes(routesData.data);  // Adjust based on your API response
+        setAvailableRoutes(routesData.data);
         setAvailableNeighborhoods(nhoodsData.data);
       } catch (error) {
         console.error("Failed to fetch metadata:", error);
@@ -39,6 +42,8 @@ function App() {
 
     fetchMetadata();
   }, []);
+
+  const activePaths = useDisplayPaths(pathButton, displayedRoutes)
 
 
   return (
@@ -51,8 +56,8 @@ function App() {
               selectedNeighborhoods={selectedNeighborhoods}
               setVehicleCount={setVehicleCount}
               setTimeUpdated={setTimeUpdated}
-              routeStops={routeStops}
-              currShape={currShape}
+              activePaths={activePaths}
+              setDisplayedRoutes={setDisplayedRoutes}
             />
         </div>
         <div className='sidebar'>
@@ -65,11 +70,10 @@ function App() {
               setSelectedRoutes={setSelectedRoutes}
               selectedNeighborhoods={selectedNeighborhoods}
               setSelectedNeighborhoods={setSelectedNeighborhoods}
-              setRouteStops={setRouteStops}
               availableRoutes={availableRoutes}
               availableNeighborhoods={availableNeighborhoods}
-              currShape={currShape}
-              setCurrShape={setCurrShape}
+              setPathButton={setPathButton}
+              pathButton={pathButton}
             />
         </div>
       </div>
