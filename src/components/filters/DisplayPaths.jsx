@@ -1,16 +1,20 @@
-import { useState } from 'react'
-import api from '../../api'
+// components/DisplayPaths.jsx
+export const DisplayPaths = ({ showPaths, onHidePaths }) => {
+    if (!showPaths) {
+        return (
+            <div className="interactives">
+                <span className="paths-hint">Select a destination to show nearby paths</span>
+            </div>
+        );
+    }
 
-export const DisplayPaths = ({ pathButton, setPathButton }) => {
     return (
         <div className="interactives">
-            <button onClick={
-                pathButton === 'Show Paths' 
-                    ? () => setPathButton('Hide Paths')
-                    : () => setPathButton('Show Paths')}
-            >{pathButton}</button>
+            <button onClick={onHidePaths}>
+                Hide Paths
+            </button>
         </div>
-    )
-}
+    );
+};
 
 export default DisplayPaths;

@@ -2,6 +2,7 @@ import '../css/Controls.css'
 import NbrhdFilter from './filters/NbrhdFilter'
 import RouteFilter from './filters/RouteFilter'
 import DisplayPaths from './filters/DisplayPaths'
+import AddressSearch from './filters/AddressSearch'
 
 const Pane = ({ name, filter }) => {
     return (
@@ -19,11 +20,20 @@ export default function Controls({
     setSelectedNeighborhoods,
     availableRoutes,
     availableNeighborhoods,
-    setPathButton,
-    pathButton,
+    showPaths,
+    onHidePaths,
+    onDestinationSelected
 }) {
     return (
         <div className="controls-container">
+            <Pane
+                name='Enter a Destination'
+                filter={
+                    <AddressSearch 
+                        onDestinationSelected={onDestinationSelected}
+                    />
+                }
+            />
             <Pane
                 name='Route Filter'
                 filter={
@@ -44,16 +54,15 @@ export default function Controls({
                     />
                 }
             />
-            <Pane 
-                name='Show Paths' 
+            <Pane
+                name='Paths'
                 filter={
-                    <DisplayPaths 
-                        setPathButton={setPathButton}
-                        pathButton={pathButton}
+                    <DisplayPaths
+                        showPaths={showPaths}
+                        onHidePaths={onHidePaths}
                     />
                 }
             />
-            <Pane name='*In development*' />
             <Pane name='*In development*' />
         </div>
     );

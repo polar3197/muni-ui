@@ -27,7 +27,6 @@ export default function VehicleMarker({bus}) {
                 <div style={{textAlign: 'center'}}>
                     Vehicle: {bus.vehicle_id}<br/>
                     {bus.direction_id ? "Inbound" : "Outbound"}<br/>
-                    <div>Bearing: {bearing}°</div>
                 </div>
             </Popup>
         </Marker>

@@ -9,7 +9,7 @@ export function useFetchVehicles(intervalMs = 60000, setTimeUpdated) {
       try {
         const response = await api.get('/vehicles/current');
         const data = await response.data;
-        console.log(`fetched vehicles`);
+        // console.log(`fetched vehicles: `, data);
         setBuses(data); // or parse/transform as needed
         
         const date = new Date(data[0].timestamp);
